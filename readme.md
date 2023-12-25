@@ -21,7 +21,7 @@
    pip install requirements.txt
    ```
 
-4. Запустить проект командой
+4. Запустить локальный сервер командой
 
    ```bash
    python3 manage.py runserver
@@ -50,15 +50,15 @@ Applications for adding and viewing .csv files with built-in authorization. (Imp
 
 ## Installation on local computer
 
-1. Copy project from the project on the local computer;
+1. Copy project to the local computer;
 2. Create a virtual environment and activate it;
-3. Install any command
+3. Installing all dependencies:
 
      ``` bash
-     Requirements for installing pip.txt
+     pip install requirements.txt
      ```
 
-4. Launch a team project
+4. Launch the local server:
 
      ``` bash
      python3 Manage.py launch server
@@ -75,4 +75,4 @@ You can view and delete a file only after logging in.
 
 ## Accounts
 
-Open the admin panel to create or edit an account: ```localhost:8000\admin```
+Open the admin panel to create or edit accounts: ```localhost:8000\admin```
