@@ -1,0 +1,95 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href='{% static "css/styles.css" %}'>
+    <title>{{ object.name }}</title>
+</head>
+<body>
+ 
+    <div class="my_container">
+      <button type="button" class="btn btn-outline-primary">
+        <a href="/">Back</a>
+      </button>
+        <div class="pagination">            
+            <span class="step-links">              
+                
+              <div class="numpages_and_buttons">
+                <div class="current">
+                    Page {{ page_obj.current_page }} of {{ page_obj.num_pages }}.
+                </div>              
+            
+                <div class="btn-group" role="group" aria-label="Basic example">
+                
+                  {% if page_obj.current_page > 1%}  
+                    <button type="button" class="btn btn-primary">                                  
+                      <a href="{% url 'tablefile_details' pk=object.pk slug=object.slug current_page=page_obj.current_page sort_order=0 next_page=0 prev_page=1 paginate_by=paginate_by%}">prev</a>                   
+                    </button>
+                    {% else %}
+                    <button type="button" class="btn btn-primary"> 
+                      <a style="color: gray">prev</a>
+                    </button>
+                    {% endif %}
+
+                  {% if page_obj.current_page < page_obj.num_pages %}
+                    <button type="button" class="btn btn-primary">
+                      <a href="{% url 'tablefile_details' pk=object.pk slug=object.slug current_page=page_obj.current_page sort_order=0 next_page=1 prev_page=0 paginate_by=paginate_by %}">next</a>
+                    </button>
+                  {% else %}
+                    <button type="button" class="btn btn-primary">
+                      <a style="color: gray">next</a>
+                    </button>                   
+                  {% endif %}
+
+                </div>
+              </div>
+              <form method="post">
+                {% csrf_token %}
+                <div class="form_div"> 
+                  {% bootstrap_form form %}   
+                </div>
+                <div class="form_buttons">  
+                  {% buttons %}  
+                      <button type="submit" class="btn btn-primary"> Submit</button>                  
+                  {% endbuttons %}
+                  <p class="btn btn-outline-success" data-tooltip="Сlick on a column name to sort the table by it; Сlick on the column name again to sort in reverse order">How to sort by column?</p>
+                </div>   
+              </form> 
+                    
+            </span>
+        </div>   
+   
+   
+    <table id="table">
+        <tr>
+          {% for col in df.columns %}
+            <th> 
+                    <a href="{% url 'tablefile_details' pk=object.pk slug=col current_page=page_obj.current_page sort_order=sort_order next_page=0 prev_page=0 paginate_by=paginate_by%}">{{col}}</a>
+            </th>
+          {% endfor %}
+        </tr>
+          {% for index, row in df.iterrows %}
+            <tr>
+              {% for cell in row %}
+                <td>
+                  {{cell}}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+    </table>  
+  </div>
+</body>

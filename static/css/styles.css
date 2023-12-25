@@ -1,0 +1,74 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+html {
+    background-color: #181a1b;
+}
+
+.my_container {
+    padding-left: 25px;
+    padding-top: 25px;
+}
+
+.header_loggedin_div {
+    padding-top: 25px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.for_file_upload_header {
+    padding-top: 25px;
+}
+
+.for_file_upload_header p {
+    text-decoration: underline;
+}
+
+.filestable{
+    border-top: 1px solid #000;
+    padding-top: 15px;
+}
+
+.numpages_and_buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid black;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.form_div {
+    display: flex;    
+}
+
+.form_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-group a {
+    text-decoration: none;
+    color: white;
+}
+
+[data-tooltip] {
+    position: relative; /* Относительное позиционирование */ 
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip); /* Выводим текст */
+    opacity: 0;
+    transition: 1s;
+    pointer-events: none;
+    position: absolute;
+    width: 200px;
+    background: rgb(9, 75, 172);
+    color: #fff;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;    
+}

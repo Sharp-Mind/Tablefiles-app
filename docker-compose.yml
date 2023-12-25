@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  tablefile_service:
+    build: .
+    container_name: tablefile_service
+    command: >
+      /bin/sh -c "python3 manage.py makemigrations
+      && python3 manage.py migrate
+      && python manage.py createsuperuser --noinput; exit 0"
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@example.command
+    volumes:
+      - .:/app
+
+  gunicorn:
+    image: tablefile_service
+    container_name: 'gunicorn'
+    restart: always
+    command: /bin/sh -c "python3 -m gunicorn -b 0.0.0.0:80 file_analysis.wsgi --reload"
+    volumes:
+      - .:/app
+    ports:
+      - 80:80
+    depends_on:
+      - tablefile_service
